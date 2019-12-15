@@ -3,4 +3,7 @@ class LaserCard extends Card {
         this.description = "Utiliser un laser pour attaquer ce qui est devant la tortue";
         this.name =  "Laser Card";
     }
+    public void executerCard(Player player){
+
+    }
 }

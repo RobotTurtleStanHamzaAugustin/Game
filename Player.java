@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Player {
     private String color;
-    private String direction;
-    private int[] position = new int[2];
+    private int direction;
+    private int[] position;
     private String name;
     private List<Card> program;
     private List<Card> deck;
@@ -15,14 +15,14 @@ public class Player {
 
     public Player(String color, int[] position, String name, int passageOrder) {
         this.color = color;
-        this.direction = "down";
+        this.direction = 2;
         this.position = position;
         this.name = name;
         this.passageOrder = passageOrder;
         this.setDeck();
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(int direction) {
         this.direction = direction;
     }
 
@@ -30,6 +30,19 @@ public class Player {
     public void setProgram(List<Card> program) {
 
         this.program = program;
+    }
+
+    public void setPosition(boolean up, boolean right, boolean down, boolean left) {
+        if (up){
+            this.position[0] -= 1;
+        } else if (down){
+            this.position[0] += 1;
+        } else if (right){
+            this.position[1] += 1;
+        } else if (left) {
+            this.position[1] -= 1;
+        }
+
     }
 
     public void setDeck() {
@@ -53,10 +66,24 @@ public class Player {
 
     public void initialiserHand() {
         this.hand = new ArrayList<Card>();
-        for (int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             this.hand.add(this.deck.get(0));
             this.deck.remove(0);
         }
+    }
+
+    public void initialiserProgram() {
+        this.program = new ArrayList<Card>();
+
+    }
+
+    public void completerProgram(int indice) {
+        this.program.add(this.hand.get(indice));
+        this.hand.remove(indice);
+    }
+
+    public List<Card> getProgram() {
+        return program;
     }
 
     public void defausserHand(int i) {
@@ -64,14 +91,14 @@ public class Player {
     }
 
     public void piocherHand() {
-        while (this.hand.size() < 5 ){
+        while (this.hand.size() < 5) {
             this.hand.add(this.deck.get(0));
             this.deck.remove(0);
 
         }
     }
 
-    public  List<Card> getDeck() {
+    public List<Card> getDeck() {
         return deck;
     }
 
@@ -81,5 +108,14 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public int[] getPosition() {
+        System.out.println(position[0] + " ; " + position[1]);
+        return position;
     }
 }
