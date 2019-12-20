@@ -10,6 +10,9 @@ public class Player {
     private List<Card> program;
     private List<Card> deck;
     private List<Card> hand;
+    private List<Blocks> iceBlocks;
+    private List<Blocks> stoneBlocks;
+    private List<Blocks> blocksInHand;
     //    private List<Block> blocks;
     private int passageOrder;
 
@@ -20,6 +23,8 @@ public class Player {
         this.name = name;
         this.passageOrder = passageOrder;
         this.setDeck();
+        this.setIceBlocks();//a deplacer je ne sais où
+        this.setStoneBlocks();//same
     }
 
     public void setDirection(int direction) {
@@ -63,6 +68,22 @@ public class Player {
         }
         Collections.shuffle(this.deck);
     }
+    
+     public void setIceBlocks() {
+        this.iceBlocks = new ArrayList<Blocks>();
+        IceBlock iceBlock = new IceBlock();
+        for (int i = 0; i < 12; i++) { 
+            this.iceBlocks.add(iceBlock);
+        }
+    }
+    
+    public void setStoneBlocks() {
+        this.stoneBlocks = new ArrayList<Blocks>();
+        StoneBlock stoneBlock = new StoneBlock();
+        for (int i = 0; i < 20; i++) {
+            this.stoneBlocks.add(stoneBlock);
+            }
+    }
 
     public void initialiserHand() {
         this.hand = new ArrayList<Card>();
@@ -72,6 +93,18 @@ public class Player {
         }
     }
 
+     public void initilaiserBlocksInHand() { //initialise la liste des  blocks que possedent chaque joueur
+   	 this.blocksInHand = new ArrayList<Blocks>();
+        for (int i = 0; i < 3; i++) {
+            this.blocksInHand.add(this.iceBlocks.get(0));
+            this.iceBlocks.remove(0);
+        }
+        for (int i = 0; i < 4; i++) {
+            this.blocksInHand.add(this.stoneBlocks.get(0));
+            this.stoneBlocks.remove(0);
+        }
+   }
+    
     public void initialiserProgram() {
         this.program = new ArrayList<Card>();
 
