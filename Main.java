@@ -4,40 +4,22 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        /*int positionBlue[] = {0, 0};
-        Player bluePlayer = new Player("blue", positionBlue, "Augustin", 1);
-        List<Card> liste = bluePlayer.getDeck();
-        for (int i=0; i<5;i++){
-            System.out.println(liste.get(i).getDescription());
-        }
-        System.out.println(bluePlayer.getDeck());
-        bluePlayer.initialiserHand();
-        System.out.println(bluePlayer.getDeck());
-        List<Card> hand = bluePlayer.getHand();
-        System.out.println(hand);
-        bluePlayer.defausserHand(2);
-        bluePlayer.defausserHand(2);
-        System.out.println(hand);
-        bluePlayer.piocherHand();
-        System.out.println(hand);
-        System.out.println(bluePlayer.getDeck())*/;
-        int positionBlue[] = {0, 0};
-        Player bluePlayer = new Player("blue", positionBlue, "Augustin", 1);
-        bluePlayer.initialiserHand();
-        bluePlayer.initialiserProgram();
-        List<Card> hand = bluePlayer.getHand();
-        System.out.println(hand);
-        Game.getPlayerChoice(1,bluePlayer);
-        System.out.println(hand);
-        Game.getPlayerChoice(1,bluePlayer);
-        System.out.println(hand);
-        Game.getPlayerChoice(1,bluePlayer);
-        System.out.println(hand);
-        Game.getPlayerChoice(1,bluePlayer);
-        System.out.println(hand);
-        Game.getPlayerChoice(2,bluePlayer);
-        System.out.println(bluePlayer.getPosition());
-        System.out.println(bluePlayer.getDirection());
+        int currentPlayer = 3;
+        Game game = new Game();
+        Grid grid = new Grid(new int[8][8]);
+        game.initialiserJeu(grid);
+        do {
+            currentPlayer = (currentPlayer + 1) % 4;
+            System.out.println("C'est le tour du joueur "+ (currentPlayer + 1) );
+            Game.tourJeu(Game.getPlayers().get(currentPlayer),grid);
+            grid.updateCell(Game.getPlayers().get(currentPlayer));
+            grid.afficherCell();
+            Game.defausser(Game.getPlayers().get(currentPlayer));
+        } while (Game.finduJeu(Game.getPlayers().get(currentPlayer),grid) == false);
+        System.out.println("Le joueur gagnant est le joueur"+ (currentPlayer + 1));
+
+
+
 
 
 

@@ -1,7 +1,8 @@
+
 public abstract class Blocks {
     protected String description;
     protected String name;
-    protected boolean isDestructable; 
+    protected boolean isDestructable;
 
     public String getDescription() {
         return description;
@@ -10,7 +11,7 @@ public abstract class Blocks {
     public String getName() {
         return name;
     }
-    
+
     public boolean getDestructability() {
         return isDestructable;
     }
