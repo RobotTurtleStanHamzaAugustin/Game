@@ -9,9 +9,10 @@ import javax.swing.JPanel;
 
 
 public class graphique extends JFrame {
-	
+	boolean b=true;
 	Panneau Panneau = new Panneau();
 	int i = Panneau.getPosition();
+	int angle = Panneau.getAngle();
 
 	  
 	  
@@ -26,29 +27,52 @@ public class graphique extends JFrame {
 	    
 	    
 	    JPanel boutonPane = new JPanel();
-		JButton bouton = new JButton();
+		JButton boutonCarte1 = new JButton();
+		JButton boutonCarte2 = new JButton();
 		
 		
 		
 		
-	    bouton.addActionListener(new ActionListener(){
+	    boutonCarte1.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	        	
-	        	 i+=80;
-	        	 
-	        	 System.out.println(i);
+	        	 i+=82;
+	        	 b=true;
+
 	        	 Panneau.SetPosition(i);
+	        	 
 	        }
+	        
 	      });
 	    
-	    this.add(bouton);
+	    boutonCarte2.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent event){
+	        	
+	        	 angle+=90;
+	        	 b=true;
+
+	        	 Panneau.SetAngle(angle);
+	        	 
+	        }
+	        
+	      });
+	    
+	    if(b==true) {
+	    	b=false;
+	    this.add(boutonCarte1);
+	    this.add(boutonCarte2);
 	    
 	    
 	    
-	    bouton.setBounds(0, this.getHeight()-230,150, 200);
-	    bouton.setOpaque(false);
-	    bouton.setContentAreaFilled(false);
-	    bouton.setBorderPainted(false);
+	    boutonCarte1.setBounds(0, this.getHeight()-255,150, 200);
+	    boutonCarte1.setOpaque(false);
+	    boutonCarte1.setContentAreaFilled(false);
+	    boutonCarte1.setBorderPainted(false);
+	    
+	    boutonCarte2.setBounds(150, this.getHeight()-255,150, 200);
+	    boutonCarte2.setOpaque(false);
+	    boutonCarte2.setContentAreaFilled(false);
+	    boutonCarte2.setBorderPainted(false);
 	    
 		this.setResizable(false);
 
@@ -57,7 +81,7 @@ public class graphique extends JFrame {
 	    
 	    this.setVisible(true);
 	  }
-	  
+	  }
 	  
 	
 	} 
