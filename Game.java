@@ -37,11 +37,15 @@ public class Game {
                 System.out.println("Quel bloc voulez vous construire?");
                 Scanner scannerss = new Scanner(System.in);
                 int ind = scannerss.nextInt();
-                System.out.println("Où voulez-vous le construire?");
-                System.out.println("numéro de ligne?");
-                int ligne = scannerss.nextInt();
-                System.out.println("numéro de colonne?");
-                int colonne = scannerss.nextInt();
+                int ligne = 1;
+                int colonne = 1;
+                do {System.out.println("Où voulez-vous le construire?");
+                    System.out.println("numéro de ligne?");
+                    ligne = scannerss.nextInt();
+                    System.out.println("numéro de colonne?");
+                    colonne = scannerss.nextInt();
+                } while (!grid.Blockisposable(ligne, colonne));
+
                 grid.poserBlock(player.getBlocksInHand().get(ind),ligne,colonne);
                 player.defausserBlock(ind);
 
@@ -67,8 +71,8 @@ public class Game {
                 ((YellowCard) card).executerCard(player);
             } else if (card instanceof PurpleCard) {
                 ((PurpleCard) card).executerCard(player);
-            } else {
-                ((LaserCard) card).executerCard(player);
+            } else if (card instanceof LaserCard){
+                ((LaserCard) card).executerCard(player,grid,game);
             }
 
 
@@ -135,17 +139,14 @@ public class Game {
         System.out.println("Combien de cartes voulez vous défausser?");
         Scanner scanner = new Scanner(System.in);
         int nombre = scanner.nextInt();
-        System.out.println("Quelles cartes voulez-vous défausser?");
-        List<Integer> cartes = new ArrayList<>();
-        for (int i = 0;i < nombre;i++){
-            int carte = scanner.nextInt();
-            cartes.add(carte);
-        }
-        for (int i = 0; i < nombre;i++){
-            player.defausserHand(cartes.get(i) - i);
+        for (int i = 0; i < nombre ; i++){
+            System.out.println("Votre main: ");
+            System.out.println(player.getHand());
+            System.out.println("Quelle carte voulez-vous défausser?");
+            int ind = scanner.nextInt();
+            player.defausserHand(ind);
         }
         player.piocherHand();
-
     }
 
 

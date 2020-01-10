@@ -29,11 +29,30 @@ public class Grid {
         }
         return false;
     }
+
+    public void deleteBlock(int ligne,int colonne){
+        this.cell[ligne][colonne] = 0;
+    }
+
+    public boolean Blockisposable(int ligne, int colonne){
+        if (this.cell[ligne][colonne] != 0){
+            System.out.println("Vous ne pouvez pas poser de mur à cet endroit!");
+            return false;
+        }
+        return true;
+    }
      public boolean presenceJoueur(int ligne,int colonne){
          if (this.cell[ligne][colonne] == 1 || this.cell[ligne][colonne] == 2 || this.cell[ligne][colonne] == 3 || this.cell[ligne][colonne] == 4){
              return true;
          }
          return false;
+     }
+
+     public boolean sortieCarte(int ligne, int colonne){
+        if (ligne < 0 || ligne > 7 || colonne < 0 || colonne > 7){
+            return true;
+        }
+        return false;
      }
 
      public int indiceJoueur(int ligne, int colonne){
@@ -63,6 +82,7 @@ public class Grid {
 
     }
 
-
-
+    public int[][] getCell() {
+        return cell;
+    }
 }
