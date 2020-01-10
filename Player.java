@@ -46,6 +46,19 @@ public class Player {
 
     }
 
+    public void retourDepart() {
+        this.direction = 2;
+        if (this.passageOrder == 1) {
+            this.position = new int[]{0, 0};
+        } else if (this.passageOrder == 2) {
+            this.position = new int[]{0, 2};
+        } else if (this.passageOrder == 3) {
+            this.position = new int[]{0, 5};
+        } else if (this.passageOrder == 4) {
+            this.position = new int[]{0, 7};
+        }
+    }
+
     public void setDeck() {
         this.deck = new ArrayList<Card>();
         BlueCard bluecard = new BlueCard();
@@ -92,11 +105,10 @@ public class Player {
 
     }
 
-    public void completerProgram(List<Integer> liste, int nombre) {
-        for (int i = 0; i < nombre; i++) {
-            this.program.add(this.hand.get(liste.get(i) - i));
-            this.hand.remove(liste.get(i) - i);
-        }
+    public void completerProgram(int ind) {
+        this.program.add(this.hand.get(ind));
+        this.hand.remove(ind);
+
 
     }
 

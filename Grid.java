@@ -21,10 +21,24 @@ public class Grid {
         } else {
             this.cell[ligne][colonne] = 9;
         }
-
-
-
     }
+
+    public boolean presenceBlock(int ligne, int colonne){
+        if (this.cell[ligne][colonne] == 8 || this.cell[ligne][colonne] == 9){
+            return true;
+        }
+        return false;
+    }
+     public boolean presenceJoueur(int ligne,int colonne){
+         if (this.cell[ligne][colonne] == 1 || this.cell[ligne][colonne] == 2 || this.cell[ligne][colonne] == 3 || this.cell[ligne][colonne] == 4){
+             return true;
+         }
+         return false;
+     }
+
+     public int indiceJoueur(int ligne, int colonne){
+        return (this.cell[ligne][colonne] + 4 - 1) % 4;
+     }
 
 
 

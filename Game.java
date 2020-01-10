@@ -19,19 +19,19 @@ public class Game {
         return players;
     }
 
-    public static void getPlayerChoice(int choix, Player player, Grid grid) {
+    public static void getPlayerChoice(int choix, Player player, Grid grid, Game game) {
         switch (choix) {
             case 1:
                 System.out.println("Combien de cartes voulez vous ajouter à votre programme?");
                 Scanner scanner = new Scanner(System.in);
                 int nombre = scanner.nextInt();
-                System.out.println("Quelles cartes voulez vous ajouter à votre programme?");
-                List<Integer> cartes = new ArrayList<>();
                 for (int i = 0;i < nombre;i++){
-                    int carte = scanner.nextInt();
-                    cartes.add(carte);
+                    System.out.println("Quelle carte voulez vous ajouter à votre programme?");
+                    System.out.println("Votre main: ");
+                    System.out.println(player.getHand());
+                    int indice = scanner.nextInt();
+                    player.completerProgram(indice);
                 }
-                player.completerProgram(cartes, nombre);
                 break;
             case 2:
                 System.out.println("Quel bloc voulez vous construire?");
@@ -48,7 +48,7 @@ public class Game {
                 break;
             case 3:
                 System.out.println("Le programme s'exécute!");
-                executerProgram(player, grid);
+                executerProgram(player, grid,game);
             default:
                 break;
 
@@ -57,12 +57,12 @@ public class Game {
 
     }
 
-    public static void executerProgram(Player player, Grid grid) {
+    public static void executerProgram(Player player, Grid grid,Game game) {
         for (int i = 0; i < player.getProgram().size(); i++) {
             Card card = player.getProgram().get(i);
             if (card instanceof BlueCard) {
                 grid.deleteCell(player);
-                ((BlueCard) card).executerCard(player);
+                ((BlueCard) card).executerCard(player,grid,game);
             } else if (card instanceof YellowCard) {
                 ((YellowCard) card).executerCard(player);
             } else if (card instanceof PurpleCard) {
@@ -78,7 +78,7 @@ public class Game {
 
     }
 
-    public static void tourJeu(Player player, Grid grid){
+    public static void tourJeu(Player player, Grid grid,Game game){
         System.out.println("Votre main: ");
         System.out.println(player.getHand());
         System.out.println("Votre programme: ");
@@ -88,7 +88,7 @@ public class Game {
         System.out.println("Pour compléter le programme taper 1\nPour construire un mur taper 2\nPour exécuter le programme taper 3");
         Scanner scanner = new Scanner(System.in);
         int choix = scanner.nextInt();
-        getPlayerChoice(choix,player,grid);
+        getPlayerChoice(choix,player,grid,game);
 
 
 
@@ -147,6 +147,8 @@ public class Game {
         player.piocherHand();
 
     }
+
+
 
 
 }
