@@ -6,6 +6,7 @@ public class Player {
     private String color;
     private int direction;
     private int[] position;
+    private int[] positionFrame;
     private String name;
     private List<Card> program;
     private List<Card> deck;
@@ -13,14 +14,19 @@ public class Player {
     private List<Blocks> blocksInHand;
     private int passageOrder;
 
-    public Player(String color, int[] position, String name, int passageOrder) {
+    public Player(String color, int[] position,int[] positionFrame, String name, int passageOrder) {
         this.color = color;
         this.direction = 2;
         this.position = position;
+        this.positionFrame = positionFrame;
         this.name = name;
         this.passageOrder = passageOrder;
         this.setDeck();
         this.setBlocksInHand();
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public void setDirection(int direction) {
@@ -159,5 +165,13 @@ public class Player {
 
     public int getPassageOrder() {
         return passageOrder;
+    }
+
+    public int[] getPositionFrame() {
+        return positionFrame;
+    }
+
+    public void setPositionFrame(int[] positionFrame) {
+        this.positionFrame = positionFrame;
     }
 }

@@ -63,6 +63,8 @@ public class Grid {
 
     public void updateCell(Player player) {
         this.cell[player.getPosition()[0]][player.getPosition()[1]] = player.getPassageOrder();
+
+
     }
 
     public void deleteCell(Player player) {
