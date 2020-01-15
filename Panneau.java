@@ -105,11 +105,15 @@ public class Panneau extends JPanel {
             g.setFont(font);
 
 
+
             Image plateau = ImageIO.read(new File("images/plateau.jpg"));
             g.drawImage(plateau, 0, 0, this.getWidth() - 300, this.getHeight() - 300, this);
             for (int i = 0; i < this.cartes.size(); i++) {
                 g.drawImage(this.cartes.get(i), 0 + 150 * i, this.getHeight() - 230, 150, 200, this);
             }
+            Image joyau = ImageIO.read(new File("images/RUBY.png"));
+            g.drawImage(joyau,105,573,78,78,this);
+            g.drawImage(joyau,511,573,78,78,this);
 
        /*     g.drawImage(this.cartes.get(0), 0, this.getHeight() - 230, 150, 200, this);
             g.drawImage(this.cartes.get(1), 150, this.getHeight() - 230, 150, 200, this);
@@ -122,9 +126,9 @@ public class Panneau extends JPanel {
             g.drawString(instruction, 10, this.getHeight() - 240);
 
             BufferedImage tortue1 = ImageIO.read(new File("images/turtle1.jpg"));
-            BufferedImage tortue2 = ImageIO.read(new File("images/turtle2.png"));
-            BufferedImage tortue3 = ImageIO.read(new File("images/turtle3.jpeg"));
-            BufferedImage tortue4 = ImageIO.read(new File("images/turle4.jpeg"));
+            BufferedImage tortue2 = ImageIO.read(new File("images/turtle2.jpg"));
+            BufferedImage tortue3 = ImageIO.read(new File("images/turtle3.jpg"));
+            BufferedImage tortue4 = ImageIO.read(new File("images/turtle4.jpg"));
 
             double rotationRequired1 = Math.toRadians(angleTortue1);
             double locationX1 = tortue1.getWidth() / 2;
@@ -150,10 +154,10 @@ public class Panneau extends JPanel {
             AffineTransform tx4 = AffineTransform.getRotateInstance(rotationRequired4, locationX4, locationY4);
             AffineTransformOp op4 = new AffineTransformOp(tx4, AffineTransformOp.TYPE_BILINEAR);
             // Drawing the rotated image at the required drawing locations
-            g.drawImage(op1.filter(tortue1, null), positionTortue1[0], positionTortue1[1], 60, 60, this);
-            g.drawImage(op2.filter(tortue2, null), positionTortue2[0], positionTortue2[1], 60, 60, this);
-            g.drawImage(op3.filter(tortue3, null), positionTortue3[0], positionTortue3[1], 60, 60, this);
-            g.drawImage(op4.filter(tortue4, null), positionTortue4[0], positionTortue4[1], 60, 60, this);
+            g.drawImage(op1.filter(tortue1, null), positionTortue1[0], positionTortue1[1], 77, 77, this);
+            g.drawImage(op2.filter(tortue2, null), positionTortue2[0], positionTortue2[1], 77, 77, this);
+            g.drawImage(op3.filter(tortue3, null), positionTortue3[0], positionTortue3[1], 77, 77, this);
+            g.drawImage(op4.filter(tortue4, null), positionTortue4[0], positionTortue4[1], 77, 77, this);
 
             this.updateUI();
             this.setVisible(true);

@@ -44,16 +44,16 @@ public class Player {
     public void setPosition(boolean up, boolean right, boolean down, boolean left) {
         if (up) {
             this.position[0] -= 1;
-            this.positionFrame[1] -= 80;
+            this.positionFrame[1] -= 79;
         } else if (down) {
             this.position[0] += 1;
-            this.positionFrame[1] += 80;
+            this.positionFrame[1] += 79;
         } else if (right) {
             this.position[1] += 1;
-            this.positionFrame[0] += 80;
+            this.positionFrame[0] += 81;
         } else if (left) {
             this.position[1] -= 1;
-            this.positionFrame[0] -= 80;
+            this.positionFrame[0] -= 81;
         }
 
     }

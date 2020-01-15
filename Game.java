@@ -130,10 +130,10 @@ public class Game {
     }
 
     public void initialiserPartie(Grid grid, Graphique graphique) {
-        Player bluePlayer = new Player("blue", new int[]{0, 0}, new int[]{25, 30}, "Jonathan", 1);
-        Player redPlayer = new Player("red", new int[]{0, 2}, new int[]{184, 30}, "Joseph", 2);
-        Player greenPlayer = new Player("green", new int[]{0, 5}, new int[]{430, 30}, "Jotaro", 3);
-        Player pinkPlayer = new Player("pink", new int[]{0, 7}, new int[]{594, 30}, "Josuke", 4);
+        Player bluePlayer = new Player("blue", new int[]{0, 0}, new int[]{26, 24}, "Jonathan", 1);
+        Player redPlayer = new Player("red", new int[]{0, 2}, new int[]{188, 24}, "Joseph", 2);
+        Player greenPlayer = new Player("green", new int[]{0, 5}, new int[]{431, 24}, "Jotaro", 3);
+        Player pinkPlayer = new Player("pink", new int[]{0, 7}, new int[]{593, 24}, "Josuke", 4);
         this.players.add(bluePlayer);
         this.players.add(redPlayer);
         this.players.add(greenPlayer);
