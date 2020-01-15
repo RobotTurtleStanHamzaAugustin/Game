@@ -17,23 +17,29 @@ public class Graphique extends JFrame {
     private JButton boutonCarte5 = new JButton();
     private JButton boutonValider = new JButton();
     private Panneau Panneau = new Panneau();
-    int angle = Panneau.getAngle();
     private int choixJeu = 0;
     private int choixCarte = 5;
     private Thread t;
     private boolean finChoix = false;
+    private String Instruction = "";
 
     public void BougerTortue(Player player) {
         if (player.getColor().equals("blue")) {
             Panneau.setPositionTortue1(player.getPositionFrame());
+            Panneau.setAngleTortue1(player.getAngle());
         } else if (player.getColor().equals("red")) {
             Panneau.setPositionTortue2(player.getPositionFrame());
+            Panneau.setAngleTortue2(player.getAngle());
         } else if (player.getColor().equals("green")) {
             Panneau.setPositionTortue3(player.getPositionFrame());
+            Panneau.setAngleTortue3(player.getAngle());
         } else if (player.getColor().equals("pink")) {
             Panneau.setPositionTortue4(player.getPositionFrame());
+            Panneau.setAngleTortue4(player.getAngle());
         }
     }
+
+
 
     public void afficherCartes(Player player) throws IOException {
         Panneau.afficherCartes(player);
@@ -43,16 +49,23 @@ public class Graphique extends JFrame {
         Panneau.setJoueurQuiJoue(player.getPassageOrder());
     }
 
+    public void afficherInstructions(String instruction){
+        Panneau.setInstruction(instruction);
+
+    }
+
     public void essai(){
         CompleterProgramme.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 choixJeu = 1;
+
             }
         });
 
         ExecuterProgramme.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 choixJeu = 3;
+
             }
         });
     }
@@ -62,6 +75,7 @@ public class Graphique extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 if (choixJeu == 1){
                     finChoix = true;
+
                 }
             }
         });
@@ -124,6 +138,7 @@ public class Graphique extends JFrame {
         this.setSize(1000, 1000);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Panneau.setInstruction(Instruction);
 
 
 //        JPanel boutonPane = new JPanel();
@@ -180,7 +195,7 @@ public class Graphique extends JFrame {
         ExecuterProgramme.setContentAreaFilled(false);
         ExecuterProgramme.setBorderPainted(false);
 
-        boutonValider.setBounds(785,this.getHeight() - 115,200,50);
+        boutonValider.setBounds(785,this.getHeight() - 165,400,50);
         boutonValider.setOpaque(false);
         boutonValider.setContentAreaFilled(false);
         boutonValider.setBorderPainted(false);
@@ -216,6 +231,19 @@ public class Graphique extends JFrame {
     public boolean isFinChoix() {
         return finChoix;
     }
+
+    public void setInstruction(String instruction) {
+        Instruction = instruction;
+    }
+
+    public void setCompleterProgramme(boolean bool) {
+        CompleterProgramme.setVisible(bool);
+    }
+
+    public void setExecuterProgramme(boolean bool) {
+        ExecuterProgramme.setVisible(bool);
+    }
+
     /*public class BoutonListener implements ActionListener{
         public void actionPerformed(ActionEvent arg0) {
             t = new Thread(new PlayAnimation());

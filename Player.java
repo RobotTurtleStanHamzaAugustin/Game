@@ -5,6 +5,7 @@ import java.util.List;
 public class Player {
     private String color;
     private int direction;
+    private int angle;
     private int[] position;
     private int[] positionFrame;
     private String name;
@@ -17,6 +18,7 @@ public class Player {
     public Player(String color, int[] position,int[] positionFrame, String name, int passageOrder) {
         this.color = color;
         this.direction = 2;
+        this.angle = 270;
         this.position = position;
         this.positionFrame = positionFrame;
         this.name = name;
@@ -42,12 +44,16 @@ public class Player {
     public void setPosition(boolean up, boolean right, boolean down, boolean left) {
         if (up) {
             this.position[0] -= 1;
+            this.positionFrame[1] -= 80;
         } else if (down) {
             this.position[0] += 1;
+            this.positionFrame[1] += 80;
         } else if (right) {
             this.position[1] += 1;
+            this.positionFrame[0] += 80;
         } else if (left) {
             this.position[1] -= 1;
+            this.positionFrame[0] -= 80;
         }
 
     }
@@ -56,12 +62,20 @@ public class Player {
         this.direction = 2;
         if (this.passageOrder == 1) {
             this.position = new int[]{0, 0};
+            this.positionFrame = new int[]{25,30};
+            this.angle = 270;
         } else if (this.passageOrder == 2) {
             this.position = new int[]{0, 2};
+            this.positionFrame = new int[]{184,30};
+            this.angle = 270;
         } else if (this.passageOrder == 3) {
             this.position = new int[]{0, 5};
+            this.positionFrame = new int[]{430,30};
+            this.angle = 270;
         } else if (this.passageOrder == 4) {
             this.position = new int[]{0, 7};
+            this.positionFrame = new int[]{594,30};
+            this.angle = 270;
         }
     }
 
@@ -157,6 +171,14 @@ public class Player {
 
     public int getDirection() {
         return direction;
+    }
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
     }
 
     public int[] getPosition() {

@@ -8,6 +8,8 @@ class YellowCard extends Card{
 
     public void executerCard(Player player){
         int direction = (player.getDirection() + 4 - 1) % 4;
+        int angle = (player.getAngle() + 360 -90) % 360;
         player.setDirection(direction);
+        player.setAngle(angle);
     }
 }

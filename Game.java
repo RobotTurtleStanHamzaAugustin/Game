@@ -23,9 +23,11 @@ public class Game {
     public static void getPlayerChoice(int choix, Player player, Grid grid, Game game, Graphique graphique) throws IOException, InterruptedException {
         switch (choix) {
             case 1:
+                graphique.setExecuterProgramme(false);
                 /*System.out.println("Combien de cartes voulez vous ajouter à votre programme?");
                 Scanner scanner = new Scanner(System.in);
                 int nombre = scanner.nextInt();*/
+                graphique.afficherInstructions("Ajoutez des cartes à votre programme!");
                 while (!graphique.isFinChoix()) {
                     System.out.println(graphique.getChoixCarte());
                     System.out.println("Quelle carte voulez vous ajouter à votre programme?");
@@ -42,13 +44,15 @@ public class Game {
 
 
                     }
-                    Thread.sleep(2000);
+                    Thread.sleep(200);
 
 
                 }
                 graphique.setFinChoix(false);
+                graphique.setCompleterProgramme(false);
                 break;
             case 2:
+
                 System.out.println("Quel bloc voulez vous construire?");
                 Scanner scannerss = new Scanner(System.in);
                 int ind = scannerss.nextInt();
@@ -67,8 +71,10 @@ public class Game {
 
                 break;
             case 3:
+                graphique.setCompleterProgramme(false);
                 System.out.println("Le programme s'exécute!");
-                executerProgram(player, grid, game);
+                executerProgram(player, grid, game,graphique);
+                graphique.setExecuterProgramme(false);
             default:
                 break;
 
@@ -77,16 +83,19 @@ public class Game {
 
     }
 
-    public static void executerProgram(Player player, Grid grid, Game game) {
+    public static void executerProgram(Player player, Grid grid, Game game,Graphique graphique) {
         for (int i = 0; i < player.getProgram().size(); i++) {
             Card card = player.getProgram().get(i);
             if (card instanceof BlueCard) {
                 grid.deleteCell(player);
                 ((BlueCard) card).executerCard(player, grid, game);
+                graphique.BougerTortue(player);
             } else if (card instanceof YellowCard) {
                 ((YellowCard) card).executerCard(player);
+                graphique.BougerTortue(player);
             } else if (card instanceof PurpleCard) {
                 ((PurpleCard) card).executerCard(player);
+                graphique.BougerTortue(player);
             } else if (card instanceof LaserCard) {
                 ((LaserCard) card).executerCard(player, grid, game);
             }
@@ -121,7 +130,7 @@ public class Game {
     }
 
     public void initialiserPartie(Grid grid, Graphique graphique) {
-        Player bluePlayer = new Player("blue", new int[]{0, 0}, new int[]{20, 30}, "Jonathan", 1);
+        Player bluePlayer = new Player("blue", new int[]{0, 0}, new int[]{25, 30}, "Jonathan", 1);
         Player redPlayer = new Player("red", new int[]{0, 2}, new int[]{184, 30}, "Joseph", 2);
         Player greenPlayer = new Player("green", new int[]{0, 5}, new int[]{430, 30}, "Jotaro", 3);
         Player pinkPlayer = new Player("pink", new int[]{0, 7}, new int[]{594, 30}, "Josuke", 4);
@@ -161,8 +170,10 @@ public class Game {
     }
 
     public static void defausser(Player player, Graphique graphique) throws IOException, InterruptedException {
+
         graphique.afficherCartes(player);
         graphique.afficherCurrentPlayer(player);
+        graphique.afficherInstructions("Défausser des cartes");
         System.out.println("Votre main: ");
         System.out.println(player.getHand());
         System.out.println("Combien de cartes voulez vous défausser?");
@@ -178,12 +189,15 @@ public class Game {
                 graphique.setChoixCarte(5);
                 graphique.afficherCartes(player);
             }
-            Thread.sleep(2000);
+            Thread.sleep(200);
 
         }
         player.piocherHand();
+        graphique.afficherInstructions("");
         graphique.setChoixJeu(0);
         graphique.setFinChoix(false);
+        graphique.setExecuterProgramme(true);
+        graphique.setCompleterProgramme(true);
     }
 
 

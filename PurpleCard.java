@@ -6,6 +6,8 @@ class PurpleCard extends Card {
 
     public void executerCard(Player player){
         int direction = (player.getDirection() + 1) % 4;
+        int angle = (player.getAngle() + 90) % 360;
         player.setDirection(direction);
+        player.setAngle(angle);
     }
 }

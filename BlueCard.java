@@ -12,6 +12,7 @@ class BlueCard extends Card {
 
             } else if (grid.presenceBlock(player.getPosition()[0] - 1, player.getPosition()[1])) {
                 player.setDirection(2);
+                player.setAngle(270);
             } else if (grid.presenceJoueur(player.getPosition()[0] - 1, player.getPosition()[1])) {
                 int joueurCogné = grid.indiceJoueur(player.getPosition()[0] - 1, player.getPosition()[1]);
                 grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0] - 1, player.getPosition()[1])));
@@ -30,6 +31,7 @@ class BlueCard extends Card {
 
             } else if (grid.presenceBlock(player.getPosition()[0], player.getPosition()[1] + 1)) {
                 player.setDirection(3);
+                player.setAngle(0);
             } else if (grid.presenceJoueur(player.getPosition()[0], player.getPosition()[1] + 1)) {
                 int joueurCogné = grid.indiceJoueur(player.getPosition()[0], player.getPosition()[1] + 1);
                 grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], player.getPosition()[1] + 1)));
@@ -44,6 +46,7 @@ class BlueCard extends Card {
                 player.retourDepart();
             } else if (grid.presenceBlock(player.getPosition()[0] + 1, player.getPosition()[1])) {
                 player.setDirection(0);
+                player.setAngle(90);
             } else if (grid.presenceJoueur(player.getPosition()[0] + 1, player.getPosition()[1])) {
                 int joueurCogné = grid.indiceJoueur(player.getPosition()[0] + 1, player.getPosition()[1]);
                 grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0] + 1, player.getPosition()[1])));
@@ -58,6 +61,7 @@ class BlueCard extends Card {
                 player.retourDepart();
             } else if (grid.presenceBlock(player.getPosition()[0], player.getPosition()[1] - 1)) {
                 player.setDirection(1);
+                player.setAngle(180);
             } else if (grid.presenceJoueur(player.getPosition()[0], player.getPosition()[1] - 1)) {
                 int joueurCogné = grid.indiceJoueur(player.getPosition()[0], player.getPosition()[1] - 1);
                 grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], player.getPosition()[1] - 1)));
