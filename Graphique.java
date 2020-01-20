@@ -22,6 +22,8 @@ public class Graphique extends JFrame {
     private Thread t;
     private boolean finChoix = false;
     private String Instruction = "";
+    private static final int ROWS = 8;
+	private static final int COLS = 8;
 
     public void BougerTortue(Player player) {
         if (player.getColor().equals("blue")) {
@@ -200,6 +202,26 @@ public class Graphique extends JFrame {
         boutonValider.setContentAreaFilled(false);
         boutonValider.setBorderPainted(false);
 
+        //tableau de boutons
+        
+        JButton boutonTableau = new JButton();
+		int y = 25; //coordonnée en Y du bouton
+		for (int i = 0; i < ROWS; i++) {
+
+			int x = 25; //coordonnée en X
+
+			for (int j = 0; j < COLS; j++) {
+				boutonTableau = new JButton();
+                //on peut rajouter une fonction 'addActionListener'ici pour que le bouton retourne une coordonée quand cliqué
+                
+				boutonTableau.setBounds(x, y, 79, 79);
+				x+=80;
+				boutonTableau.setOpaque(false);
+				boutonTableau.setContentAreaFilled(false);
+				this.add(boutonTableau);
+			}
+			y+=78;
+		}
 
         this.setResizable(false);
         this.getContentPane().add(Panneau);
