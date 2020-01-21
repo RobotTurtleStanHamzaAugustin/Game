@@ -66,6 +66,9 @@ public class Grid {
     }
 
     public boolean Blockisposable(int ligne, int colonne) {
+        if (ligne < 0 || colonne < 0){
+            return false;
+        }
         if (this.cell[ligne][colonne] != 0) {
             System.out.println("Vous ne pouvez pas poser de mur à cet endroit!");
             return false;

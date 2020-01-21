@@ -57,36 +57,40 @@ public class Game {
                 graphique.setCompleterProgramme(false);
                 graphique.setExecuterProgramme(false);
                 graphique.afficherInstructions("Quel bloc voulez vous construire?");
-                int ind = -1;
+                int ind = 0;
                 int ligne;
                 int colonne;
                 graphique.setChoixMur(5);
+
                 while (graphique.getChoixMur() == 5) {
                     graphique.cliquerMurs();
                     ind = graphique.getChoixMur();
                 }
 
-                graphique.setPositionMur(player.getPosition());
+
+                graphique.setPositionMur(new int[]{-1,-1});
 
 
                 do {
                     graphique.afficherInstructions("Où voulez-vous le construire?");
-                    System.out.println(graphique.getPositionMur()[0]);
-                    System.out.println(graphique.getPositionMur()[1]);
+//                    System.out.println(graphique.getPositionMur()[0]);
+//                    System.out.println(graphique.getPositionMur()[1]);
                     graphique.positionnerMur();
-                    ligne = graphique.getPositionMur()[1];
-                    colonne = graphique.getPositionMur()[0];
+                    ligne = graphique.getPositionMur()[0];
+                    colonne = graphique.getPositionMur()[1];
                     Thread.sleep(200);
+                    System.out.println(player.getPosition()[0]);
+                    System.out.println(player.getPosition()[1]);
 
-                } while (!grid.Blockisposable(colonne, ligne));
-                System.out.println(graphique.getPositionMur()[0]);
-                System.out.println(graphique.getPositionMur()[1]);
+                } while (!grid.Blockisposable(ligne, colonne));
+//                System.out.println(graphique.getPositionMur()[0]);
+//                System.out.println(graphique.getPositionMur()[1]);
                 grid.poserBlock(player.getBlocksInHand().get(ind), ligne, colonne);
-                player.defausserBlock(ind);
-                graphique.addCoordoneesMurs(ligne);
-                graphique.addCoordoneesMurs(colonne);
+
+                graphique.addCoordoneesMurs(new Integer[]{ligne,colonne});
                 graphique.addBlocksSurPlateau(player.getBlocksInHand().get(ind));
-//                graphique.repaint();
+                player.defausserBlock(ind);
+                graphique.repaint();
                 graphique.setPoserMur(false);
                 break;
             case 3:
@@ -247,7 +251,9 @@ public class Game {
     }
 
     public static void defausser(Player player, Graphique graphique) throws IOException, InterruptedException {
-
+        for (int i = 0;i < graphique.getCoordoneesMurs().size();i++){
+            System.out.println(graphique.getCoordoneesMurs().get(i));
+        }
         graphique.afficherCartes(player);
         graphique.afficherCurrentPlayer(player);
         graphique.afficherInstructions("Défausser des cartes");

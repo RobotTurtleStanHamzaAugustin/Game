@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -28,7 +29,7 @@ public class Panneau extends JPanel {
     private String instruction = "";
     private int menu = 0;
     private int finJeu = 0;
-    private List<Integer> coordoneesMurs = new ArrayList<Integer>() ;
+    private List<Integer[]> coordoneesMurs = new ArrayList<>() ;
     private List<Blocks> blocksSurPlateau = new ArrayList<Blocks>();
 
 
@@ -131,7 +132,8 @@ public class Panneau extends JPanel {
                 g.drawString("Valider", 785, this.getHeight() - 115);
                 g.setFont(font);
 
-
+                Image Wall = ImageIO.read(new File("images/WALL.png"));
+                Image Ice = ImageIO.read(new File("images/ICE.png"));
                 Image plateau = ImageIO.read(new File("images/plateau.jpg"));
                 g.drawImage(plateau, 0, 0, this.getWidth() - 300, this.getHeight() - 300, this);
                 for (int i = 0; i < this.cartes.size(); i++) {
@@ -141,6 +143,14 @@ public class Panneau extends JPanel {
                     g.drawImage(this.murs.get(i), 300 + 77 * i, this.getHeight() - 290, 60, 60, this);
                 }
 
+                for (int i=0;i < blocksSurPlateau.size();i ++){
+                    if (blocksSurPlateau.get(i) instanceof StoneBlock){
+                        g.drawImage(Wall,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*79,77,77,this);
+                    } else if (blocksSurPlateau.get(i) instanceof IceBlock){
+                        g.drawImage(Ice,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*79,77,77,this);
+                    }
+                }
+
                 Image joyau = ImageIO.read(new File("images/RUBY.png"));
 
                 BufferedImage tortue1 = ImageIO.read(new File("images/turtle1.jpg"));
@@ -148,7 +158,7 @@ public class Panneau extends JPanel {
                 BufferedImage tortue3 = ImageIO.read(new File("images/turtle3.jpg"));
                 BufferedImage tortue4 = ImageIO.read(new File("images/turtle4.jpg"));
 
-                Image Wall = ImageIO.read(new File("images/WALL.png"));
+
 
                 double rotationRequired1 = Math.toRadians(angleTortue1);
                 double locationX1 = tortue1.getWidth() / 2;
@@ -216,11 +226,7 @@ public class Panneau extends JPanel {
                 g.setColor(Color.green);
                 g.drawString(instruction, 10, this.getHeight() - 210);
 
-                for (int i=0;i < blocksSurPlateau.size();i++){
-                    if (blocksSurPlateau.get(i) instanceof StoneBlock){
-                        g.drawImage(Wall,24 +coordoneesMurs.get(1 + 2*i)*81,26 +coordoneesMurs.get(2*i)*79,77,77,this);
-                    }
-                }
+
 
 
 
@@ -254,6 +260,7 @@ public class Panneau extends JPanel {
 
             this.updateUI();
             this.setVisible(true);
+            this.repaint();
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -270,12 +277,35 @@ public class Panneau extends JPanel {
         this.finJeu = finJeu;
     }
 
-    public void addCoordoneesMurs(int coordoneesMurs) {
+    public void addCoordoneesMurs(Integer[] coordoneesMurs) {
         this.coordoneesMurs.add(coordoneesMurs);
 
     }
 
     public void addBlocksSurPlateau(Blocks blocksSurPlateau) {
         this.blocksSurPlateau.add(blocksSurPlateau);
+    }
+
+    public void setCoordoneesMurs(List<Integer[]> coordoneesMurs) {
+        this.coordoneesMurs = coordoneesMurs;
+    }
+
+    public void removeBlocksSurPlateau(int indice) {
+        this.blocksSurPlateau.remove(indice);
+    }
+
+    public  void supprimerBlock(Integer[] coor){
+        int i = -1;
+        Iterator<Integer[]> iterator = coordoneesMurs.iterator();
+        System.out.println("kira");
+        while (iterator.hasNext()){
+            i++;
+            Integer[] I = iterator.next();
+            System.out.println("dio");
+            if (I[0] == coor[0] && I[1] == coor[1]){
+                System.out.println("jojo");
+                iterator.remove();
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -41,7 +42,7 @@ public class Graphique extends JFrame {
     private int menu = 0;
     private List<JButton> listeBoutons = new ArrayList<JButton>() ;
     private int[] positionMur = new int[2];
-    private List<Integer> coordoneesMurs = new ArrayList<Integer>() ;
+    private List<Integer[]> coordoneesMurs = new ArrayList<>() ;
     private List<Blocks> blocksSurPlateau = new ArrayList<Blocks>();
 
 
@@ -86,8 +87,8 @@ public class Graphique extends JFrame {
             int finalI = i;
             listeBoutons.get(i).addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
-                    positionMur[0] = finalI / 8;
-                    positionMur[1] = finalI % 8;
+                    positionMur[1] = finalI / 8;
+                    positionMur[0] = finalI % 8;
 
 
                 }
@@ -397,9 +398,9 @@ public class Graphique extends JFrame {
             for (int j = 0; j < 8; j++){
                 JButton boutonTableau = new JButton();
                 boutonTableau.setBounds(26 + i*81,24 + j*79,77,77);
-//                boutonTableau.setOpaque(false);
-//                boutonTableau.setContentAreaFilled(false);
-//                boutonTableau.setBorderPainted(false);
+                boutonTableau.setOpaque(false);
+                boutonTableau.setContentAreaFilled(false);
+                boutonTableau.setBorderPainted(false);
                 listeBoutons.add(boutonTableau);
             }
         }
@@ -474,7 +475,7 @@ public class Graphique extends JFrame {
         this.positionMur = positionMur;
     }
 
-    public void addCoordoneesMurs(int coordoneesMurs) {
+    public void addCoordoneesMurs(Integer[] coordoneesMurs) {
         this.coordoneesMurs.add(coordoneesMurs);
         Panneau.addCoordoneesMurs(coordoneesMurs);
 
@@ -485,7 +486,7 @@ public class Graphique extends JFrame {
         Panneau.addBlocksSurPlateau(blocksSurPlateau);
     }
 
-    public List<Integer> getCoordoneesMurs() {
+    public List<Integer[]> getCoordoneesMurs() {
         return coordoneesMurs;
     }
 
@@ -495,6 +496,26 @@ public class Graphique extends JFrame {
 
     public void setChoixMur(int choixMur) {
         this.choixMur = choixMur;
+    }
+
+    public void supprimerBloc(Integer[] coor){
+        int i = -2;
+        Iterator<Integer[]> iterator = coordoneesMurs.iterator();
+        System.out.println("kira");
+        while (iterator.hasNext()){
+            i++;
+            Integer[] I = iterator.next();
+            System.out.println("dio");
+            if (I[0] == coor[0] && I[1] == coor[1]){
+                System.out.println("jojo");
+                iterator.remove();
+            }
+        }
+        System.out.println(i);
+        blocksSurPlateau.remove(i);
+        Panneau.removeBlocksSurPlateau(i);
+        Panneau.supprimerBlock(coor);
+
     }
 
     /*public class BoutonListener implements ActionListener{

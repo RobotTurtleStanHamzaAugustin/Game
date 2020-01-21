@@ -9,6 +9,7 @@ class LaserCard extends Card {
             for (int i = player.getPosition()[0] - 1; i > -1; i--) {
                 if (grid.getCell()[i][player.getPosition()[1]] == 8) {
                     grid.deleteBlock(i, player.getPosition()[1]);
+                    graphique.supprimerBloc(new Integer[]{i, player.getPosition()[1]});
                     break;
                 }
                 if (grid.getCell()[i][player.getPosition()[1]] == 9) {
@@ -43,6 +44,7 @@ class LaserCard extends Card {
                 if (grid.getCell()[player.getPosition()[0]][i] == 8) {
                     System.out.println("block");
                     grid.deleteBlock(player.getPosition()[0], i);
+                    graphique.supprimerBloc(new Integer[]{player.getPosition()[0], i});
                     break;
                 }
                 if (grid.getCell()[player.getPosition()[0]][i] == 9) {
@@ -71,8 +73,12 @@ class LaserCard extends Card {
 
         } else if (player.getDirection() == 2) {
             for (int i = player.getPosition()[0] + 1; i < 7; i++) {
+                System.out.println("trolll");
                 if (grid.getCell()[i][player.getPosition()[1]] == 8) {
                     grid.deleteBlock(i, player.getPosition()[1]);
+                    System.out.println("troll");
+                    graphique.supprimerBloc(new Integer[]{i, player.getPosition()[1]});
+                    System.out.println("troll");
                     break;
                 }
                 if (grid.getCell()[i][player.getPosition()[1]] == 9) {
@@ -102,6 +108,7 @@ class LaserCard extends Card {
             for (int i = player.getPosition()[1] - 1; i > -1; i--) {
                 if (grid.getCell()[player.getPosition()[0]][i] == 8) {
                     grid.deleteBlock(player.getPosition()[0], i);
+                    graphique.supprimerBloc(new Integer[]{player.getPosition()[0], i});
                     break;
                 }
                 if (grid.getCell()[player.getPosition()[0]][i] == 9) {

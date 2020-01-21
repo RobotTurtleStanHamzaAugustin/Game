@@ -21,7 +21,7 @@ public class Main {
         do {
             currentPlayer = changerCurrentPlayer(graphique,currentPlayer);
             Game.tourJeu(Game.getPlayers().get(currentPlayer), grid, game,graphique);
-//            grid.updateCell(Game.getPlayers().get(currentPlayer));
+            grid.updateCell(Game.getPlayers().get(currentPlayer));
             grid.afficherCell(graphique);
             Game.defausser(Game.getPlayers().get(currentPlayer),graphique);
         } while (Game.finduJeu(Game.getPlayers().get(currentPlayer), graphique) == false);
