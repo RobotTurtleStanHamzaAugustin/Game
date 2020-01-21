@@ -4,7 +4,7 @@ class LaserCard extends Card {
         this.name = "Laser Card";
     }
 
-    public void executerCard(Player player, Grid grid, Game game) {
+    public void executerCard(Player player, Grid grid, Game game, Graphique graphique) {
         if (player.getDirection() == 0) {
             for (int i = player.getPosition()[0] - 1; i > -1; i--) {
                 if (grid.getCell()[i][player.getPosition()[1]] == 8) {
@@ -15,10 +15,20 @@ class LaserCard extends Card {
                     break;
                 }
                 if (grid.getCell()[i][player.getPosition()[1]] == 4 || grid.getCell()[i][player.getPosition()[1]] == 1 || grid.getCell()[i][player.getPosition()[1]] == 2 || grid.getCell()[i][player.getPosition()[1]] == 3) {
-                    int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1]);
-                    grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(i, player.getPosition()[1])));
-                    game.getPlayers().get(joueurTouché).retourDepart();
-                    grid.updateCell(game.getPlayers().get(joueurTouché));
+                    if (graphique.getMenu() == 2) {
+                        int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1], graphique);
+                        game.getPlayers().get(joueurTouché).inverserPosition();
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+
+                    } else {
+                        int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1], graphique);
+                        grid.deleteCell(game.getPlayers().get(joueurTouché));
+                        game.getPlayers().get(joueurTouché).retourDepart(graphique);
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+                    }
+
                     break;
                 }
 
@@ -29,6 +39,7 @@ class LaserCard extends Card {
         } else if (player.getDirection() == 1) {
             for (int i = player.getPosition()[1] + 1; i < 8; i++) {
                 System.out.println("coucou");
+                System.out.println(i);
                 if (grid.getCell()[player.getPosition()[0]][i] == 8) {
                     System.out.println("block");
                     grid.deleteBlock(player.getPosition()[0], i);
@@ -37,12 +48,20 @@ class LaserCard extends Card {
                 if (grid.getCell()[player.getPosition()[0]][i] == 9) {
                     break;
                 }
-                if (grid.getCell()[player.getPosition()[0]][i] == 4 || grid.getCell()[player.getPosition()[0]][i] == 1 || grid.getCell()[player.getPosition()[0]][i] == 2 || grid.getCell()[player.getPosition()[0]][i] == 1) {
-                    System.out.println("joueur");
-                    int joueurTouche = grid.indiceJoueur(player.getPosition()[0], i);
-                    grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], i)));
-                    game.getPlayers().get(joueurTouche).retourDepart();
-                    grid.updateCell(game.getPlayers().get(joueurTouche));
+                if (grid.getCell()[player.getPosition()[0]][i] == 4 || grid.getCell()[player.getPosition()[0]][i] == 1 || grid.getCell()[player.getPosition()[0]][i] == 2 || grid.getCell()[player.getPosition()[0]][i] == 3) {
+                    if (graphique.getMenu() == 2) {
+                        int joueurTouché = grid.indiceJoueur(player.getPosition()[0], i, graphique);
+                        game.getPlayers().get(joueurTouché).inverserPosition();
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+
+                    } else {
+                        int joueurTouche = grid.indiceJoueur(player.getPosition()[0], i, graphique);
+                        grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], i, graphique)));
+                        game.getPlayers().get(joueurTouche).retourDepart(graphique);
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouche));
+                        grid.updateCell(game.getPlayers().get(joueurTouche));
+                    }
                     break;
                 }
 
@@ -60,10 +79,19 @@ class LaserCard extends Card {
                     break;
                 }
                 if (grid.getCell()[i][player.getPosition()[1]] == 4 || grid.getCell()[i][player.getPosition()[1]] == 1 || grid.getCell()[i][player.getPosition()[1]] == 2 || grid.getCell()[i][player.getPosition()[1]] == 3) {
-                    int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1]);
-                    grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(i, player.getPosition()[1])));
-                    game.getPlayers().get(joueurTouché).retourDepart();
-                    grid.updateCell(game.getPlayers().get(joueurTouché));
+                    if (graphique.getMenu() == 2) {
+                        int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1], graphique);
+                        game.getPlayers().get(joueurTouché).inverserPosition();
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+
+                    } else {
+                        int joueurTouché = grid.indiceJoueur(i, player.getPosition()[1], graphique);
+                        grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(i, player.getPosition()[1], graphique)));
+                        game.getPlayers().get(joueurTouché).retourDepart(graphique);
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+                    }
                     break;
                 }
 
@@ -80,10 +108,19 @@ class LaserCard extends Card {
                     break;
                 }
                 if (grid.getCell()[player.getPosition()[0]][i] == 4 || grid.getCell()[player.getPosition()[0]][i] == 1 || grid.getCell()[player.getPosition()[0]][i] == 2 || grid.getCell()[player.getPosition()[0]][i] == 1) {
-                    int joueurTouche = grid.indiceJoueur(player.getPosition()[0], i);
-                    grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], i)));
-                    game.getPlayers().get(joueurTouche).retourDepart();
-                    grid.updateCell(game.getPlayers().get(joueurTouche));
+                    if (graphique.getMenu() == 2) {
+                        int joueurTouché = grid.indiceJoueur(player.getPosition()[0], i, graphique);
+                        game.getPlayers().get(joueurTouché).inverserPosition();
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouché));
+                        grid.updateCell(game.getPlayers().get(joueurTouché));
+
+                    } else {
+                        int joueurTouche = grid.indiceJoueur(player.getPosition()[0], i, graphique);
+                        grid.deleteCell(game.getPlayers().get(grid.indiceJoueur(player.getPosition()[0], i, graphique)));
+                        game.getPlayers().get(joueurTouche).retourDepart(graphique);
+                        graphique.BougerTortue(game.getPlayers().get(joueurTouche));
+                        grid.updateCell(game.getPlayers().get(joueurTouche));
+                    }
                     break;
                 }
 

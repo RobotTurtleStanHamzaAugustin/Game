@@ -58,24 +58,56 @@ public class Player {
 
     }
 
-    public void retourDepart() {
+    public void retourDepart(Graphique graphique) {
         this.direction = 2;
-        if (this.passageOrder == 1) {
-            this.position = new int[]{0, 0};
-            this.positionFrame = new int[]{25,30};
-            this.angle = 270;
-        } else if (this.passageOrder == 2) {
-            this.position = new int[]{0, 2};
-            this.positionFrame = new int[]{184,30};
-            this.angle = 270;
-        } else if (this.passageOrder == 3) {
-            this.position = new int[]{0, 5};
-            this.positionFrame = new int[]{430,30};
-            this.angle = 270;
-        } else if (this.passageOrder == 4) {
-            this.position = new int[]{0, 7};
-            this.positionFrame = new int[]{594,30};
-            this.angle = 270;
+        switch (graphique.getMenu()){
+            case 2:
+                if (this.passageOrder == 1) {
+                    this.position = new int[]{0, 1};
+                    this.positionFrame = new int[]{107,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 2) {
+                    this.position = new int[]{0, 5};
+                    this.positionFrame = new int[]{431, 24};
+                    this.angle = 270;
+                }
+                break;
+            case 3:
+                if (this.passageOrder == 1) {
+                    this.position = new int[]{0, 0};
+                    this.positionFrame = new int[]{26,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 2) {
+                    this.position = new int[]{0, 3};
+                    this.positionFrame = new int[]{269,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 3) {
+                    this.position = new int[]{0, 6};
+                    this.positionFrame = new int[]{512,24};
+                    this.angle = 270;
+                }
+                break;
+            case 4:
+                if (this.passageOrder == 1) {
+                    this.position = new int[]{0, 0};
+                    this.positionFrame = new int[]{26,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 2) {
+                    this.position = new int[]{0, 2};
+                    this.positionFrame = new int[]{188,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 3) {
+                    this.position = new int[]{0, 5};
+                    this.positionFrame = new int[]{431,24};
+                    this.angle = 270;
+                } else if (this.passageOrder == 4) {
+                    this.position = new int[]{0, 7};
+                    this.positionFrame = new int[]{593,24};
+                    this.angle = 270;
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -193,7 +225,25 @@ public class Player {
         return positionFrame;
     }
 
+
     public void setPositionFrame(int[] positionFrame) {
         this.positionFrame = positionFrame;
+    }
+
+    public  void inverserPosition(){
+        if (this.direction == 0){
+            this.direction = 2;
+            this.angle = 270;
+        } else if (this.direction == 1){
+            this.direction = 3;
+            this.angle =0;
+        } else if (this.direction == 2){
+            this.direction = 0;
+            this.angle = 90;
+        } else if (this.direction == 3){
+            this.direction = 1;
+            this.angle = 180;
+        }
+
     }
 }
