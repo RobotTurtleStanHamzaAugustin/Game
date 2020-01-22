@@ -1,7 +1,7 @@
 class IceBlock extends Blocks {
-    public IceBlock() {
+    IceBlock() {
         this.description = "Pose un bloc de glace sur la grille";
-        this.name =  "Ice Block";
-        this.isDestructable =  true;
+        this.name = "Ice Block";
+        this.isDestructable = true;
     }
 }

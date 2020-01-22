@@ -1,33 +1,13 @@
 
-public abstract class Blocks {
-    protected String description;
-    protected String name;
-    protected boolean isDestructable;
+abstract class Blocks {
+    String description;
+    String name;
+    boolean isDestructable;
 
-    public String getDescription() {
-        return description;
-    }
 
-    public String getName() {
+    String getName() {
         return name;
     }
-
-    public boolean getDestructability() {
-        return isDestructable;
-    }
-
-
-
-    public void playCard(){
-
-
-
-
-    }
-
-
-
-
 
 
 }

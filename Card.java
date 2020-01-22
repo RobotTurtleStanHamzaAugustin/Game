@@ -1,27 +1,11 @@
-public abstract class Card  {
-    protected String description;
-    protected String name;
+abstract class Card {
+    String description;
+    String name;
 
-    public String getDescription() {
-        return description;
-    }
 
-    public String getName() {
+    String getName() {
         return name;
     }
-
-
-
-    public void playCard(){
-
-
-
-
-    }
-
-
-
-
 
 
 }

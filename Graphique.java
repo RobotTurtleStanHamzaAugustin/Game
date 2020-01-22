@@ -1,18 +1,13 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
-
-
-public class Graphique extends JFrame {
+class Graphique extends JFrame {
     private JButton CompleterProgramme = new JButton();
     private JButton ExecuterProgramme = new JButton();
     private JButton PoserMur = new JButton();
@@ -32,229 +27,176 @@ public class Graphique extends JFrame {
     private int choixJeu = 0;
     private int choixCarte = 5;
     private int choixMur = 5;
-    private Thread t;
     private boolean finChoix = false;
-    private String Instruction = "";
     private int menu = 0;
-    private List<JButton> listeBoutons = new ArrayList<JButton>() ;
+    private List<JButton> listeBoutons = new ArrayList<>();
     private int[] positionMur = new int[2];
-    private List<Integer[]> coordoneesMurs = new ArrayList<>() ;
-    private List<Blocks> blocksSurPlateau = new ArrayList<Blocks>();
+    private List<Integer[]> coordoneesMurs = new ArrayList<>();
+    private int nombreColonnes;
 
 
-    public void BougerTortue(Player player) {
-        if (player.getColor().equals("blue")) {
-            Panneau.setPositionTortue1(player.getPositionFrame());
-            Panneau.setAngleTortue1(player.getAngle());
-        } else if (player.getColor().equals("red")) {
-            Panneau.setPositionTortue2(player.getPositionFrame());
-            Panneau.setAngleTortue2(player.getAngle());
-        } else if (player.getColor().equals("green")) {
-            Panneau.setPositionTortue3(player.getPositionFrame());
-            Panneau.setAngleTortue3(player.getAngle());
-        } else if (player.getColor().equals("pink")) {
-            Panneau.setPositionTortue4(player.getPositionFrame());
-            Panneau.setAngleTortue4(player.getAngle());
+    void BougerTortue(Player player) {
+        switch (player.getColor()) {
+            case "blue":
+                Panneau.setPositionTortue1(player.getPositionFrame());
+                Panneau.setAngleTortue1(player.getAngle());
+                break;
+            case "red":
+                Panneau.setPositionTortue2(player.getPositionFrame());
+                Panneau.setAngleTortue2(player.getAngle());
+                break;
+            case "green":
+                Panneau.setPositionTortue3(player.getPositionFrame());
+                Panneau.setAngleTortue3(player.getAngle());
+                break;
+            case "pink":
+                Panneau.setPositionTortue4(player.getPositionFrame());
+                Panneau.setAngleTortue4(player.getAngle());
+                break;
         }
     }
 
-    public void initialiserBoutonsCartes(){
-        for (int i = 0; i < 5 ; i++){
+    private void initialiserBoutonsCartes() {
+        for (int i = 0; i < 5; i++) {
             this.boutonCartes.add(new JButton());
         }
     }
 
 
-    public void afficherCartes(Player player) throws IOException {
+    void afficherCartes(Player player) throws IOException {
         Panneau.afficherCartes(player);
     }
 
-    public void afficherMurs(Player player) throws IOException {
+    void afficherMurs(Player player) throws IOException {
         Panneau.afficherMurs(player);
     }
 
 
-
-    public void afficherCurrentPlayer(Player player) {
+    void afficherCurrentPlayer(Player player) {
         Panneau.setJoueurQuiJoue(player.getPassageOrder());
     }
 
-    public void afficherInstructions(String instruction) {
+    void afficherInstructions(String instruction) {
         Panneau.setInstruction(instruction);
 
     }
 
-    public void incrementeCompteurCartesCliquees() {
+    void incrementeCompteurCartesCliquees() {
         this.compteurCartesCliquees++;
     }
 
-    public int getCompteurCartesCliquees() {
+    int getCompteurCartesCliquees() {
         return compteurCartesCliquees;
     }
 
-    public void positionnerMur(){
-        for (int i = 0; i < listeBoutons.size();i++){
+    void positionnerMur() {
+        for (int i = 0; i < (nombreColonnes * 8); i++) {
             int finalI = i;
-            listeBoutons.get(i).addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    positionMur[1] = finalI / 8;
-                    positionMur[0] = finalI % 8;
+            listeBoutons.get(i).addActionListener(event -> {
+                positionMur[1] = finalI / 8;
+                positionMur[0] = finalI % 8;
 
 
-                }
             });
         }
 
     }
 
-    public void essai() {
+    void essai() {
 
-        CompleterProgramme.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                choixJeu = 1;
+        CompleterProgramme.addActionListener(event -> choixJeu = 1);
 
-            }
-        });
+        PoserMur.addActionListener(event -> choixJeu = 2);
 
-        PoserMur.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                choixJeu = 2;
-
-            }
-        });
-
-        ExecuterProgramme.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                choixJeu = 3;
-
-            }
-        });
+        ExecuterProgramme.addActionListener(event -> choixJeu = 3);
     }
 
-//    public void Valider() {
-//        boutonValider.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent event) {
-//                if (choixJeu == 1) {
-//                    finChoix = true;
-//
-//                }
-//            }
-//        });
-//    }
 
-    public void cliquerCartes() {
-        for (int i = 0;i < 5;i++){
+    void cliquerCartes() {
+        for (int i = 0; i < 5; i++) {
             int finalI = i;
-            boutonCartes.get(i).addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    if (choixJeu == 1) {
-                        choixCarte = finalI;
-                    }
-                }
-            });
-        }
-        boutonValider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            boutonCartes.get(i).addActionListener(event -> {
                 if (choixJeu == 1) {
-                    finChoix = true;
+                    choixCarte = finalI;
                 }
+            });
+        }
+        boutonValider.addActionListener(event -> {
+            if (choixJeu == 1) {
+                finChoix = true;
             }
         });
 
 
     }
 
-    public void cliquerMurs(){
-        boutonMur1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 2) {
-                   choixMur = 0;
-                }
+    void cliquerMurs() {
+        boutonMur1.addActionListener(event -> {
+            if (choixJeu == 2) {
+                choixMur = 0;
             }
         });
 
-        boutonMur2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 2) {
-                    choixMur = 1;
-                }
+        boutonMur2.addActionListener(event -> {
+            if (choixJeu == 2) {
+                choixMur = 1;
             }
         });
-        boutonMur3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 2) {
-                    choixMur = 2;
-                }
+        boutonMur3.addActionListener(event -> {
+            if (choixJeu == 2) {
+                choixMur = 2;
             }
         });
-        boutonMur4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 2) {
-                    choixMur = 3;
-                }
+        boutonMur4.addActionListener(event -> {
+            if (choixJeu == 2) {
+                choixMur = 3;
             }
         });
-        boutonMur5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 2) {
-                    choixMur = 4;
-                }
+        boutonMur5.addActionListener(event -> {
+            if (choixJeu == 2) {
+                choixMur = 4;
             }
         });
 
     }
 
-    public void choixMenu() {
-        bouton2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                changerMenu(2);
-
-            }
-        });
-        bouton3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                changerMenu(3);
-
-            }
-        });
-        bouton4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                changerMenu(4);
-
-            }
-        });
+    void choixMenu() {
+        bouton2.addActionListener(event -> changerMenu(2));
+        bouton3.addActionListener(event -> changerMenu(3));
+        bouton4.addActionListener(event -> changerMenu(4));
 
 
     }
 
-    public  void finJeu(int joueurGagnant){
+    void finJeu(int joueurGagnant) {
         Panneau.setFinJeu(joueurGagnant);
     }
 
-    public void changerMenu(int nombreJoueur) {
-        if (nombreJoueur == 2){
+    private void changerMenu(int nombreJoueur) {
+        if (nombreJoueur == 2) {
             this.menu = 2;
             Panneau.setMenu(2);
-        } else if (nombreJoueur == 3){
+            nombreColonnes = 7;
+
+        } else if (nombreJoueur == 3) {
             this.menu = 3;
             Panneau.setMenu(3);
-        } else if (nombreJoueur == 4){
+            nombreColonnes = 7;
+
+        } else if (nombreJoueur == 4) {
+
             this.menu = 4;
             Panneau.setMenu(4);
+            nombreColonnes = 8;
         }
 
         this.remove(bouton2);
         this.remove(bouton3);
         this.remove(bouton4);
         this.repaint();
-        for (int i = 0;i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             this.add(boutonCartes.get(i));
         }
-//        this.add(boutonCarte1);
-//        this.add(boutonCarte2);
-//        this.add(boutonCarte3);
-//        this.add(boutonCarte4);
-//        this.add(boutonCarte5);
         this.add(boutonMur1);
         this.add(boutonMur2);
         this.add(boutonMur3);
@@ -264,60 +206,34 @@ public class Graphique extends JFrame {
         this.add(boutonValider);
         this.add(ExecuterProgramme);
         this.add(PoserMur);
-        for (int i = 0; i < listeBoutons.size();i++){
-            this.add(listeBoutons.get(i));
+        for (JButton listeBouton : listeBoutons) {
+            this.add(listeBouton);
         }
         this.add(nothing);
     }
 
 
-    public Graphique() {
+    Graphique() {
 
         this.setTitle("Robot Turtles");
         this.setSize(1000, 1000);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.initialiserBoutonsCartes();
-        System.out.println("caca");
-//        this.setVisible(true);
-        Panneau.setInstruction(Instruction);
+        String instruction = "";
+        Panneau.setInstruction(instruction);
         if (menu == 0) {
             this.add(bouton2);
             this.add(bouton3);
             this.add(bouton4);
         }
-        for (int i = 0;i < 5; i++){
-            boutonCartes.get(i).setBounds(150*i, this.getHeight() - 230, 150, 200);
+        for (int i = 0; i < 5; i++) {
+            boutonCartes.get(i).setBounds(150 * i, this.getHeight() - 230, 150, 200);
             boutonCartes.get(i).setOpaque(false);
             boutonCartes.get(i).setContentAreaFilled(false);
             boutonCartes.get(i).setBorderPainted(false);
         }
 
-
-
-
-
-
-//
-//        boutonCarte2.setBounds(150, this.getHeight() - 230, 150, 200);
-//        boutonCarte2.setOpaque(false);
-//        boutonCarte2.setContentAreaFilled(false);
-//        boutonCarte2.setBorderPainted(false);
-//
-//        boutonCarte3.setBounds(300, this.getHeight() - 230, 150, 200);
-//        boutonCarte3.setOpaque(false);
-//        boutonCarte3.setContentAreaFilled(false);
-//        boutonCarte3.setBorderPainted(false);
-//
-//        boutonCarte4.setBounds(450, this.getHeight() - 230, 150, 200);
-//        boutonCarte4.setOpaque(false);
-//        boutonCarte4.setContentAreaFilled(false);
-//        boutonCarte4.setBorderPainted(false);
-//
-//        boutonCarte5.setBounds(600, this.getHeight() - 230, 150, 200);
-//        boutonCarte5.setOpaque(false);
-//        boutonCarte5.setContentAreaFilled(false);
-//        boutonCarte5.setBorderPainted(false);
 
         boutonMur1.setBounds(300, this.getHeight() - 320, 60, 60);
         boutonMur1.setOpaque(false);
@@ -345,7 +261,6 @@ public class Graphique extends JFrame {
         boutonMur5.setBorderPainted(false);
 
 
-
         CompleterProgramme.setBounds(this.getWidth() - 214, 50, 128, 128);
         CompleterProgramme.setOpaque(false);
         CompleterProgramme.setContentAreaFilled(false);
@@ -366,7 +281,7 @@ public class Graphique extends JFrame {
         boutonValider.setContentAreaFilled(false);
         boutonValider.setBorderPainted(false);
 
-        bouton2.setBounds(this.getWidth()/4, this.getHeight()/2 - 100 , 50, 100);
+        bouton2.setBounds(this.getWidth() / 4, this.getHeight() / 2 - 100, 50, 100);
         bouton2.setOpaque(false);
         bouton2.setContentAreaFilled(false);
         bouton2.setBorderPainted(false);
@@ -376,28 +291,27 @@ public class Graphique extends JFrame {
         nothing.setContentAreaFilled(false);
         nothing.setBorderPainted(false);
 
-        bouton3.setBounds(this.getWidth()/2, this.getHeight()/2 - 100 , 50, 100);
+        bouton3.setBounds(this.getWidth() / 2, this.getHeight() / 2 - 100, 50, 100);
         bouton3.setOpaque(false);
         bouton3.setContentAreaFilled(false);
         bouton3.setBorderPainted(false);
 
-        bouton4.setBounds(3*this.getWidth()/4, this.getHeight()/2 - 100 , 50, 100);
+        bouton4.setBounds(3 * this.getWidth() / 4, this.getHeight() / 2 - 100, 50, 100);
         bouton4.setOpaque(false);
         bouton4.setContentAreaFilled(false);
         bouton4.setBorderPainted(false);
 
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 JButton boutonTableau = new JButton();
-                boutonTableau.setBounds(26 + i*81,24 + j*79,77,77);
+                boutonTableau.setBounds(26 + i * 81, 24 + j * 79, 77, 77);
                 boutonTableau.setOpaque(false);
                 boutonTableau.setContentAreaFilled(false);
                 boutonTableau.setBorderPainted(false);
                 listeBoutons.add(boutonTableau);
             }
         }
-
-
 
 
         this.setResizable(false);
@@ -407,142 +321,112 @@ public class Graphique extends JFrame {
         this.setVisible(true);
 
 
-
     }
 
 
-    public int getChoixJeu() {
+    int getChoixJeu() {
         return choixJeu;
     }
 
-    public void setChoixJeu(int choixJeu) {
+    void setChoixJeu(int choixJeu) {
         this.choixJeu = choixJeu;
     }
 
-    public int getChoixCarte() {
+    int getChoixCarte() {
         return choixCarte;
     }
 
-    public void setChoixCarte(int choixCarte) {
-        this.choixCarte = choixCarte;
+    void setChoixCarte() {
+        this.choixCarte = 5;
     }
 
-    public void setFinChoix(boolean finChoix) {
-        this.finChoix = finChoix;
+    void setFinChoix() {
+        this.finChoix = false;
     }
 
-    public void desactiveBoutonCarte(int i) {
+    void desactiveBoutonCarte(int i) {
         this.boutonCartes.get(i).setVisible(false);
     }
 
-    public void setCompteurCartesCliquees(int compteurCartesCliquees) {
-        this.compteurCartesCliquees = compteurCartesCliquees;
+    void setCompteurCartesCliquees() {
+        this.compteurCartesCliquees = 0;
     }
 
-    public boolean isFinChoix() {
-        return finChoix;
+    boolean isFinChoix() {
+        return !finChoix;
     }
 
-    public void setInstruction(String instruction) {
-        Instruction = instruction;
-    }
-
-    public void reactiverBouton(){
+    void reactiverBouton() {
         ExecuterProgramme.setVisible(true);
         CompleterProgramme.setVisible(true);
         PoserMur.setVisible(true);
-        for (int i = 0; i <5; i++){
+        for (int i = 0; i < 5; i++) {
             this.boutonCartes.get(i).setVisible(true);
         }
     }
 
-    public void setCompleterProgramme(boolean bool) {
-        CompleterProgramme.setVisible(bool);
+    void setCompleterProgramme() {
+        CompleterProgramme.setVisible(false);
     }
 
-    public void setExecuterProgramme(boolean bool) {
-        ExecuterProgramme.setVisible(bool);
+    void setExecuterProgramme() {
+        ExecuterProgramme.setVisible(false);
     }
 
 
-    public void setPoserMur(boolean bool) {
-        PoserMur.setVisible(bool);
+    void setPoserMur() {
+        PoserMur.setVisible(false);
     }
 
-    public int getMenu() {
+    int getMenu() {
         return menu;
     }
 
-    public int getChoixMur() {
+    int getChoixMur() {
         return choixMur;
     }
 
-    public int[] getPositionMur() {
+    int[] getPositionMur() {
         return positionMur;
     }
 
-    public void setPositionMur(int[] positionMur) {
+    void setPositionMur(int[] positionMur) {
         this.positionMur = positionMur;
     }
 
-    public void addCoordoneesMurs(Integer[] coordoneesMurs) {
+    void addCoordoneesMurs(Integer[] coordoneesMurs) {
         this.coordoneesMurs.add(coordoneesMurs);
         Panneau.addCoordoneesMurs(coordoneesMurs);
 
     }
 
-    public void addBlocksSurPlateau(Blocks blocksSurPlateau) {
-        this.blocksSurPlateau.add(blocksSurPlateau);
+    void addBlocksSurPlateau(Blocks blocksSurPlateau) {
         Panneau.addBlocksSurPlateau(blocksSurPlateau);
     }
 
-    public List<Integer[]> getCoordoneesMurs() {
+    List<Integer[]> getCoordoneesMurs() {
         return coordoneesMurs;
     }
 
-    public List<Blocks> getBlocksSurPlateau() {
-        return blocksSurPlateau;
+
+    void setChoixMur() {
+        this.choixMur = 5;
     }
 
-    public void setChoixMur(int choixMur) {
-        this.choixMur = choixMur;
-    }
-
-    public void supprimerBloc(Integer[] coor){
+    void supprimerBloc(Integer[] coor) {
         int i = -1;
         Iterator<Integer[]> iterator = coordoneesMurs.iterator();
-        System.out.println("kira");
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             i++;
             Integer[] I = iterator.next();
-            System.out.println("dio");
-            if (I[0] == coor[0] && I[1] == coor[1]){
-                System.out.println("jojo");
+            if (I[0].equals(coor[0]) && I[1].equals(coor[1])) {
                 iterator.remove();
                 break;
             }
         }
-        System.out.println(i);
-        blocksSurPlateau.remove(i);
         Panneau.removeBlocksSurPlateau(i);
         Panneau.supprimerBlock(coor);
-
     }
-
-    /*public class BoutonListener implements ActionListener{
-        public void actionPerformed(ActionEvent arg0) {
-            t = new Thread(new PlayAnimation());
-            t.start();
-
-        }
-    }*/
-
-    /*class PlayAnimation implements Runnable{
-        public void run() {
-            essai();
-
-        }
-    }*/
 
 }
 
