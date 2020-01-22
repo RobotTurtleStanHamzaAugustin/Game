@@ -145,9 +145,9 @@ public class Panneau extends JPanel {
 
                 for (int i=0;i < blocksSurPlateau.size();i ++){
                     if (blocksSurPlateau.get(i) instanceof StoneBlock){
-                        g.drawImage(Wall,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*79,77,77,this);
+                        g.drawImage(Wall,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*78,77,77,this);
                     } else if (blocksSurPlateau.get(i) instanceof IceBlock){
-                        g.drawImage(Ice,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*79,77,77,this);
+                        g.drawImage(Ice,24 +coordoneesMurs.get(i)[1]*81,26 +coordoneesMurs.get(i)[0]*78,77,77,this);
                     }
                 }
 

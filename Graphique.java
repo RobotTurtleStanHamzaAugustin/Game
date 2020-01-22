@@ -16,11 +16,8 @@ public class Graphique extends JFrame {
     private JButton CompleterProgramme = new JButton();
     private JButton ExecuterProgramme = new JButton();
     private JButton PoserMur = new JButton();
-    private JButton boutonCarte1 = new JButton();
-    private JButton boutonCarte2 = new JButton();
-    private JButton boutonCarte3 = new JButton();
-    private JButton boutonCarte4 = new JButton();
-    private JButton boutonCarte5 = new JButton();
+    private int compteurCartesCliquees = 0;
+    private List<JButton> boutonCartes = new ArrayList<>();
     private JButton boutonMur1 = new JButton();
     private JButton boutonMur2 = new JButton();
     private JButton boutonMur3 = new JButton();
@@ -32,7 +29,6 @@ public class Graphique extends JFrame {
     private JButton bouton3 = new JButton();
     private JButton bouton4 = new JButton();
     private Panneau Panneau = new Panneau();
-    private Menu Menu = new Menu();
     private int choixJeu = 0;
     private int choixCarte = 5;
     private int choixMur = 5;
@@ -62,6 +58,12 @@ public class Graphique extends JFrame {
         }
     }
 
+    public void initialiserBoutonsCartes(){
+        for (int i = 0; i < 5 ; i++){
+            this.boutonCartes.add(new JButton());
+        }
+    }
+
 
     public void afficherCartes(Player player) throws IOException {
         Panneau.afficherCartes(player);
@@ -80,6 +82,14 @@ public class Graphique extends JFrame {
     public void afficherInstructions(String instruction) {
         Panneau.setInstruction(instruction);
 
+    }
+
+    public void incrementeCompteurCartesCliquees() {
+        this.compteurCartesCliquees++;
+    }
+
+    public int getCompteurCartesCliquees() {
+        return compteurCartesCliquees;
     }
 
     public void positionnerMur(){
@@ -133,42 +143,16 @@ public class Graphique extends JFrame {
 //    }
 
     public void cliquerCartes() {
-        boutonCarte1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 1) {
-                    choixCarte = 0;
+        for (int i = 0;i < 5;i++){
+            int finalI = i;
+            boutonCartes.get(i).addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    if (choixJeu == 1) {
+                        choixCarte = finalI;
+                    }
                 }
-            }
-        });
-
-        boutonCarte2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 1) {
-                    choixCarte = 1;
-                }
-            }
-        });
-        boutonCarte3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 1) {
-                    choixCarte = 2;
-                }
-            }
-        });
-        boutonCarte4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 1) {
-                    choixCarte = 3;
-                }
-            }
-        });
-        boutonCarte5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (choixJeu == 1) {
-                    choixCarte = 4;
-                }
-            }
-        });
+            });
+        }
         boutonValider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (choixJeu == 1) {
@@ -263,11 +247,14 @@ public class Graphique extends JFrame {
         this.remove(bouton3);
         this.remove(bouton4);
         this.repaint();
-        this.add(boutonCarte1);
-        this.add(boutonCarte2);
-        this.add(boutonCarte3);
-        this.add(boutonCarte4);
-        this.add(boutonCarte5);
+        for (int i = 0;i < 5; i++){
+            this.add(boutonCartes.get(i));
+        }
+//        this.add(boutonCarte1);
+//        this.add(boutonCarte2);
+//        this.add(boutonCarte3);
+//        this.add(boutonCarte4);
+//        this.add(boutonCarte5);
         this.add(boutonMur1);
         this.add(boutonMur2);
         this.add(boutonMur3);
@@ -290,6 +277,8 @@ public class Graphique extends JFrame {
         this.setSize(1000, 1000);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.initialiserBoutonsCartes();
+        System.out.println("caca");
 //        this.setVisible(true);
         Panneau.setInstruction(Instruction);
         if (menu == 0) {
@@ -297,35 +286,38 @@ public class Graphique extends JFrame {
             this.add(bouton3);
             this.add(bouton4);
         }
+        for (int i = 0;i < 5; i++){
+            boutonCartes.get(i).setBounds(150*i, this.getHeight() - 230, 150, 200);
+            boutonCartes.get(i).setOpaque(false);
+            boutonCartes.get(i).setContentAreaFilled(false);
+            boutonCartes.get(i).setBorderPainted(false);
+        }
 
 
 
 
 
-        boutonCarte1.setBounds(0, this.getHeight() - 230, 150, 200);
-        boutonCarte1.setOpaque(false);
-        boutonCarte1.setContentAreaFilled(false);
-        boutonCarte1.setBorderPainted(false);
 
-        boutonCarte2.setBounds(150, this.getHeight() - 230, 150, 200);
-        boutonCarte2.setOpaque(false);
-        boutonCarte2.setContentAreaFilled(false);
-        boutonCarte2.setBorderPainted(false);
-
-        boutonCarte3.setBounds(300, this.getHeight() - 230, 150, 200);
-        boutonCarte3.setOpaque(false);
-        boutonCarte3.setContentAreaFilled(false);
-        boutonCarte3.setBorderPainted(false);
-
-        boutonCarte4.setBounds(450, this.getHeight() - 230, 150, 200);
-        boutonCarte4.setOpaque(false);
-        boutonCarte4.setContentAreaFilled(false);
-        boutonCarte4.setBorderPainted(false);
-
-        boutonCarte5.setBounds(600, this.getHeight() - 230, 150, 200);
-        boutonCarte5.setOpaque(false);
-        boutonCarte5.setContentAreaFilled(false);
-        boutonCarte5.setBorderPainted(false);
+//
+//        boutonCarte2.setBounds(150, this.getHeight() - 230, 150, 200);
+//        boutonCarte2.setOpaque(false);
+//        boutonCarte2.setContentAreaFilled(false);
+//        boutonCarte2.setBorderPainted(false);
+//
+//        boutonCarte3.setBounds(300, this.getHeight() - 230, 150, 200);
+//        boutonCarte3.setOpaque(false);
+//        boutonCarte3.setContentAreaFilled(false);
+//        boutonCarte3.setBorderPainted(false);
+//
+//        boutonCarte4.setBounds(450, this.getHeight() - 230, 150, 200);
+//        boutonCarte4.setOpaque(false);
+//        boutonCarte4.setContentAreaFilled(false);
+//        boutonCarte4.setBorderPainted(false);
+//
+//        boutonCarte5.setBounds(600, this.getHeight() - 230, 150, 200);
+//        boutonCarte5.setOpaque(false);
+//        boutonCarte5.setContentAreaFilled(false);
+//        boutonCarte5.setBorderPainted(false);
 
         boutonMur1.setBounds(300, this.getHeight() - 320, 60, 60);
         boutonMur1.setOpaque(false);
@@ -439,12 +431,29 @@ public class Graphique extends JFrame {
         this.finChoix = finChoix;
     }
 
+    public void desactiveBoutonCarte(int i) {
+        this.boutonCartes.get(i).setVisible(false);
+    }
+
+    public void setCompteurCartesCliquees(int compteurCartesCliquees) {
+        this.compteurCartesCliquees = compteurCartesCliquees;
+    }
+
     public boolean isFinChoix() {
         return finChoix;
     }
 
     public void setInstruction(String instruction) {
         Instruction = instruction;
+    }
+
+    public void reactiverBouton(){
+        ExecuterProgramme.setVisible(true);
+        CompleterProgramme.setVisible(true);
+        PoserMur.setVisible(true);
+        for (int i = 0; i <5; i++){
+            this.boutonCartes.get(i).setVisible(true);
+        }
     }
 
     public void setCompleterProgramme(boolean bool) {
@@ -454,6 +463,7 @@ public class Graphique extends JFrame {
     public void setExecuterProgramme(boolean bool) {
         ExecuterProgramme.setVisible(bool);
     }
+
 
     public void setPoserMur(boolean bool) {
         PoserMur.setVisible(bool);
@@ -499,7 +509,7 @@ public class Graphique extends JFrame {
     }
 
     public void supprimerBloc(Integer[] coor){
-        int i = -2;
+        int i = -1;
         Iterator<Integer[]> iterator = coordoneesMurs.iterator();
         System.out.println("kira");
         while (iterator.hasNext()){
@@ -509,6 +519,7 @@ public class Graphique extends JFrame {
             if (I[0] == coor[0] && I[1] == coor[1]){
                 System.out.println("jojo");
                 iterator.remove();
+                break;
             }
         }
         System.out.println(i);

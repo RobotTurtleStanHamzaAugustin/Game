@@ -8,6 +8,9 @@ public class Game {
     private static List<Player> players;
     private int nombreJoueurs;
 
+
+
+
     public Game() {
         this.setPlayers();
     }
@@ -43,6 +46,8 @@ public class Game {
                         player.completerProgram(indice);
                         graphique.setChoixCarte(5);
                         graphique.afficherCartes(player);
+                        graphique.incrementeCompteurCartesCliquees();
+                        graphique.desactiveBoutonCarte(5 - graphique.getCompteurCartesCliquees());
 
 
                     }
@@ -73,16 +78,14 @@ public class Game {
 
                 do {
                     graphique.afficherInstructions("Où voulez-vous le construire?");
-//                    System.out.println(graphique.getPositionMur()[0]);
-//                    System.out.println(graphique.getPositionMur()[1]);
+                    System.out.println(graphique.getPositionMur()[0]);
+                    System.out.println(graphique.getPositionMur()[1]);
                     graphique.positionnerMur();
                     ligne = graphique.getPositionMur()[0];
                     colonne = graphique.getPositionMur()[1];
                     Thread.sleep(200);
-                    System.out.println(player.getPosition()[0]);
-                    System.out.println(player.getPosition()[1]);
 
-                } while (!grid.Blockisposable(ligne, colonne));
+                } while (!grid.Blockisposable(ligne, colonne,game));
 //                System.out.println(graphique.getPositionMur()[0]);
 //                System.out.println(graphique.getPositionMur()[1]);
                 grid.poserBlock(player.getBlocksInHand().get(ind), ligne, colonne);
@@ -271,6 +274,8 @@ public class Game {
                 player.defausserHand(ind);
                 graphique.setChoixCarte(5);
                 graphique.afficherCartes(player);
+                graphique.incrementeCompteurCartesCliquees();
+                graphique.desactiveBoutonCarte(5 - graphique.getCompteurCartesCliquees());
             }
             Thread.sleep(200);
 
@@ -279,9 +284,8 @@ public class Game {
         graphique.afficherInstructions("");
         graphique.setChoixJeu(0);
         graphique.setFinChoix(false);
-        graphique.setExecuterProgramme(true);
-        graphique.setCompleterProgramme(true);
-        graphique.setPoserMur(true);
+        graphique.reactiverBouton();
+        graphique.setCompteurCartesCliquees(0);
     }
 
 
